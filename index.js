@@ -46,7 +46,7 @@ app.get('/register/product', (req, res) => {
 
 
 async function uploadFile(destFileName) {
-    imagePath = path.join(process.env.IMAGEPATH, destFileName)
+    imagePath = path.join(__dirname, destFileName)
     await storage.bucket(process.env.BUCKETNAME).upload(imagePath, {
         destination: destFileName,
     });
