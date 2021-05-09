@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //----------------------------------------------------------Config firestore and cloud storage
 const Firestore = require('@google-cloud/firestore');
 // Imports the Google Cloud client library
-const {Storage} = require('@google-cloud/storage');
+// const {Storage} = require('@google-cloud/storage');
 // Creates a client
 // const storage = new Storage({
 //     projectId: process.env.PROJECT_ID,
@@ -34,8 +34,8 @@ const db = new Firestore({
     keyFilename: "key.json"
 });
 
+//----------------------------------------------------------Routes
 
-// routes
 app.get('/hello-word', (req, res) => {
     return res.status(200).send("Hello world!");
 });
@@ -108,6 +108,7 @@ app.post('/api/create', (req, res) => {
             image: image    
         }
         try {
+            console.log("Before submit")
             await db.collection('product').add(data);
             console.log("submitted successfully")
             return res.render('product.html')
