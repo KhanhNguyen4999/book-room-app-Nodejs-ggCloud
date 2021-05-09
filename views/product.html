@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>HTML Forms</h2>
+    <div>
+        <form action="http://localhost:5050/api/create", method="POST">
+            <label style="color: blue; font-size: large;">Type: </label><br>
+            <input type="text" id="fname" name="type" value="entire home"><br><br>
+
+            <label style="color: blue; font-size: large;">Adress:</label><br>
+            <div id="address">
+                <label>District:</label>
+                <input type="text" name="district" placeholder="alt">
+                <label>Ward:</label>
+                <input type="text" name="ward" placeholder="alt">
+                <label>City:</label>
+                <input type="text" name="city" placeholder="alt">
+                <label>Address number:</label>
+                <input type="text" name="addr_number" placeholder="alt"><br><br>
+            </div>
+            <label style="color: blue; font-size: large;" >Discription:</label><br>
+            <input type="text" name="description" placeholder="alt"><br><br>
+
+            <label style="color: blue; font-size: large;" >Facility:</label><br>
+            <div id="facility">
+                <label>SquareMeters:</label>
+                <input type="number" name="squareMeters" placeholder="alt">
+                <label>Wife:</label>
+                <input type="number" name="wife" placeholder="alt">
+                <label>Bedroom:</label>
+                <input type="number" name="bedroom" placeholder="alt">
+                <label>Bath:</label>
+                <input type="number" name="bath" placeholder="alt">
+                <label>Mezzanine:</label>
+                <input type="number" name="mezzanine" placeholder="alt"><br><br>
+            </div>
+
+            <label style="color: blue; font-size: large;" >Host:</label><br>
+            <div id="host">
+                <label>ID host:</label>
+                <input type="text" name="host_id" placeholder="alt"><br><br>
+            </div>
+
+            <label style="color: blue; font-size: large;" >Price:</label><br>
+            <div id="price">
+                <label>Room:</label>
+                <input type="number" name="room" placeholder="alt">
+                <label>Electricity:</label>
+                <input type="number" name="electricity" placeholder="alt">
+                <label>Water:</label>
+                <input type="number" name="water" placeholder="alt"><br><br>
+            </div>
+
+            <label style="color: blue; font-size: large;" >Reviewer:</label><br>
+            <div id="reviewer">
+                <label>ID reviewer:</label>
+                <input type="text" name="reviewerID_0" placeholder="alt">
+                <label>Comment:</label>
+                <input type="text" name="comment_0" placeholder="alt">
+                <input type="hidden" autocomplete="off" id="n_cmt" value="0" name="totalReviewer" /><br><br>
+                <button onclick="addComment()" type="button"> Add extra comment</button><br><br>
+            </div>
+
+            <br>
+            <label style="color: blue; font-size: large;" >Enter image:</label><br>
+            <div id="img">
+                <input type="text" name="alt_0" placeholder="alt">
+                <input type="file" name='img_0' placeholder="img"><br><br>
+                <input type="hidden" autocomplete="off" id="n_img" value="0" name="totalImg" />
+                <button onclick="addImg()" type="button"> Add extra image</button>
+            </div>
+            
+            
+            <input style="margin-top:50px" type="submit" onclick="submitProduct()" value="Submit">
+        </form> 
+
+        <p>If you click the "Submit" button the form data will be sent to the host.</p>
+    </div>
+    <script>
+        stt_img=1
+        stt_cmt=1
+        function addImg() {
+            var container = document.getElementById("img");
+            container.appendChild(document.createElement("br"));
+            
+            var alt = document.createElement("input");
+            alt.type = "text";
+            alt.name = "alt_" + stt_img;
+            container.appendChild(alt);
+
+            var img = document.createElement("input");
+            img.type = "file";
+            img.name = "img_" + stt_img;
+            stt_img+=1;
+            container.appendChild(img);
+        }
+
+        function addComment(){
+            console.log("Hello")
+            var container = document.getElementById("reviewer");
+
+            var newlabel = document.createElement("Label");
+            newlabel.innerHTML = "ID reviewer: ";
+            container.appendChild(newlabel);
+            
+            var id = document.createElement("input");
+            id.type = "text";
+            id.name = "reviewerID_" + stt_cmt;
+            container.appendChild(id);
+
+            var newlabel = document.createElement("Label");
+            newlabel.innerHTML = "Comment: ";
+            container.appendChild(newlabel);
+
+            var cmt = document.createElement("input");
+            cmt.type = "text";
+            cmt.name = "comment_" + stt_cmt;
+            container.appendChild(cmt);
+            container.appendChild(document.createElement("br"));
+            stt_cmt+=1;
+        }
+
+        function submitProduct(){
+            var N_img = document.getElementById("n_img")
+            N_img.value = String(stt_img)
+
+            var N_cmt = document.getElementById("n_cmt")
+            N_cmt.value = String(stt_cmt)
+        }
+    </script>
+
+</body>
+</html>

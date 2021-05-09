@@ -1,0 +1,7 @@
+runtime: nodejs14
+
+env_variables:
+  PORT: 8080
+  IMAGEPATH: "/home/minhkhanh/Desktop/book-room-app"
+  PROJECT_ID: "book-room-app-313006"
+  BUCKETNAME: "book-room-app-313006.appspot.com"
