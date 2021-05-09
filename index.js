@@ -23,13 +23,15 @@ const {Storage} = require('@google-cloud/storage');
 // Creates a client
 const storage = new Storage({
     projectId: process.env.PROJECT_ID,
-    keyFilename: path.join(__dirname, 'key.json')
+    // keyFilename: path.join(__dirname, 'key.json')
+    keyFilename: "key.json"
 });
 
 
 const db = new Firestore({
     projectId: process.env.PROJECT_ID,
-    keyFilename: path.join(__dirname, 'key.json'),
+    // keyFilename: path.join(__dirname, 'key.json'),
+    keyFilename: "key.json"
 });
 
 
