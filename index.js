@@ -21,11 +21,11 @@ const Firestore = require('@google-cloud/firestore');
 // Imports the Google Cloud client library
 const {Storage} = require('@google-cloud/storage');
 // Creates a client
-const storage = new Storage({
-    projectId: process.env.PROJECT_ID,
-    // keyFilename: path.join(__dirname, 'key.json')
-    keyFilename: "key.json"
-});
+// const storage = new Storage({
+//     projectId: process.env.PROJECT_ID,
+//     // keyFilename: path.join(__dirname, 'key.json')
+//     keyFilename: "key.json"
+// });
 
 
 const db = new Firestore({
@@ -47,14 +47,14 @@ app.get('/register/product', (req, res) => {
 
 
 
-async function uploadFile(destFileName) {
-    imagePath = path.join(__dirname, destFileName)
-    await storage.bucket(process.env.BUCKETNAME).upload(imagePath, {
-        destination: destFileName,
-    });
+// async function uploadFile(destFileName) {
+//     imagePath = path.join(__dirname, destFileName)
+//     await storage.bucket(process.env.BUCKETNAME).upload(imagePath, {
+//         destination: destFileName,
+//     });
     
-    // console.log(`${filePath} uploaded to ${bucketName}`);
-}
+//     // console.log(`${filePath} uploaded to ${bucketName}`);
+// }
 
 // Create
 // Post
@@ -65,9 +65,9 @@ app.post('/api/create', (req, res) => {
     for(i=0; i< req.body.totalImg; i++){
         image.push({
             alt: eval(`req.body.alt_${i}`),
-            img: eval(`req.body.img_${i}`)
+            img: process.env.URL + eval(`req.body.img_${i}`)
         })
-        uploadFile(image[i].img).catch(console.error)
+        // uploadFile(image[i].img).catch(console.error)
        
     }
     // list reviewer
