@@ -111,7 +111,8 @@ app.post('/api/create', (req, res) => {
             console.log("Before submit")
             await db.collection('product').add(data);
             console.log("submitted successfully")
-            return res.render('product.html')
+            return res.redirect('/register/product')
+            // return res.render("product.html")
         }
         catch (error) {
             console.log('error')
@@ -119,8 +120,6 @@ app.post('/api/create', (req, res) => {
             return res.status(500).send(error)
         }
     })();
-    console.log("Hello       ")
-    // res.status(200).send()
 })
 
 // // Read 
