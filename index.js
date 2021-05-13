@@ -1,10 +1,8 @@
 const express = require('express')
-const cors = require('cors')
 var path = require('path')
 var bodyParser =  require('body-parser')
-var path = require('path')
 require('dotenv').config()
-
+const multer = require('multer')
 
 app = express()
 app.use(express.json());
@@ -12,27 +10,31 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 // app.set("view options", {layout: false});
 // app.use(express.static(__dirname + '/views'));
-// app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
 
+const helpers = require('./helpers/helpers')
+
+app.disable('x-powered-by')
+const multerMid = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024,
+    },
+  })
+app.use(multerMid.single('image')) // That use multer like the middleware 
 
 //----------------------------------------------------------Config firestore and cloud storage
 const Firestore = require('@google-cloud/firestore');
-// Imports the Google Cloud client library
-// const {Storage} = require('@google-cloud/storage');
-// Creates a client
-// const storage = new Storage({
-//     projectId: process.env.PROJECT_ID,
-//     // keyFilename: path.join(__dirname, 'key.json')
-//     keyFilename: "key.json"
-// });
-
 
 const db = new Firestore({
     projectId: process.env.PROJECT_ID,
     // keyFilename: path.join(__dirname, 'key.json'),
     keyFilename: "key.json"
 });
+
+
+
 
 //----------------------------------------------------------Routes
 
@@ -45,10 +47,8 @@ app.get('/register/product', (req, res) => {
 
 // assisted variable and function
 
-
-
-// async function uploadFile(destFileName) {
-//     imagePath = path.join(__dirname, destFileName)
+// async function uploadFile(filePath) {
+//     imagePath = path.join(dirname, destFileName)
 //     await storage.bucket(process.env.BUCKETNAME).upload(imagePath, {
 //         destination: destFileName,
 //     });
@@ -58,16 +58,47 @@ app.get('/register/product', (req, res) => {
 
 // Create
 // Post
+// The first, data will go through multer middleware, after the result will pass to uploadImg middleware
+app.post('/uploads', async (req, res, next) => {
+    try {
+      const myFile = req.file
+      const imageUrl = await helpers.uploadImage(myFile)
+      res
+        .status(200)
+        .json({
+          message: "Upload was successful",
+          data: imageUrl
+        })
+    } catch (error) {
+      next(error)
+    }
+  })
 app.post('/api/create', (req, res) => {
-    console.log(req.body)
-    // image list
+    console.log(req.body);
+    (async() =>{ 
+            try {
+            const myFile = req.file
+            console.log(req.file)
+            const imageUrl = await helpers.uploadImage(myFile)
+            return res
+            .status(200)
+            .json({
+                message: "Upload was successful",
+                data: imageUrl
+            })
+        } catch (error) {
+            return res.status(500).send(error)
+        }
+    })();
+    return;
+
     const image = []
     for(i=0; i< req.body.totalImg; i++){
         image.push({
             alt: eval(`req.body.alt_${i}`),
             img: process.env.URL + eval(`req.body.img_${i}`)
         })
-        // uploadFile(image[i].img).catch(console.error)
+        // uploadFile(req.file.path).catch(console.error)
        
     }
     // list reviewer
