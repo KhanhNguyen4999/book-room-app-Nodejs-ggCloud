@@ -3,10 +3,12 @@ var router = express.Router()
 
 var controller=require('../controller/user.controller')
 
-router.post('/registerUser', controller.registerUser)
+router.post('/api/registerUser', controller.registerUser)
 
 router.post('/api/registerHost', controller.registerHost)
 
+router.get('/api/read/:id', controller.getSpecificUser)
 
+router.get('/api/read', controller.getAllUser)
 
 module.exports = router
