@@ -92,3 +92,41 @@ module.exports.getAllUser = (req, res) => {
         }
     })();
 }
+
+module.exports.addFavourite = (req, res) => {
+    (async () =>{
+        try{
+            let user = db.collection('user').doc(req.body.idUser);
+            let data = await user.get();
+            data = data.data();
+            
+            if ('favouriteList' in data){
+                console.log("hello");
+                let flag=0;
+                for(let p of data['favouriteList']){
+                    if (req.body.idProduct == p){
+                        flag=1;
+                        break;
+                    }
+                } 
+                
+                if(flag!=1){
+                    data['favouriteList'].push(req.body.idProduct)
+                    const res = await user.update({
+                        favouriteList: data['favouriteList']
+                    });
+                }
+                else{return res.status(200).send("it already exists");}
+            }else{
+
+                const t = await user.set({
+                    favouriteList: [req.body.idProduct]
+                }, { merge: true });
+            }
+            return res.status(200).send("Upgrade to host successfully");
+        }
+        catch(err){
+            return res.status(500).send(err);
+        }
+    })()
+};

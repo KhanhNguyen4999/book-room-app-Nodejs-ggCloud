@@ -11,4 +11,6 @@ router.get('/api/read/:id', controller.getSpecificUser)
 
 router.get('/api/read', controller.getAllUser)
 
+router.post('/api/addFavourite', controller.addFavourite)
+
 module.exports = router
