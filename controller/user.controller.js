@@ -73,13 +73,13 @@ module.exports.getSpecificUser = (req, res) => {
 }
 
 module.exports.getAllUser = (req, res) => {
-    (async()=>{
-        try{
+    (async () => {
+        try {
             let query = db.collection('user')
             let response = []
-            await query.get().then(querySnapshot =>{
+            await query.get().then(querySnapshot => {
                 let docs = querySnapshot.docs;
-                for(let doc of docs){
+                for (let doc of docs) {
                     selectedUser = doc.data();
                     selectedUser['id'] = doc.id;
                     response.push(selectedUser);
@@ -87,37 +87,37 @@ module.exports.getAllUser = (req, res) => {
                 return res.status(200).send(response)
             })
         }
-        catch(err){
+        catch (err) {
             return res.status(500).send(err)
         }
     })();
 }
 
 module.exports.addFavourite = (req, res) => {
-    (async () =>{
-        try{
+    (async () => {
+        try {
             let user = db.collection('user').doc(req.body.idUser);
             let data = await user.get();
             data = data.data();
-            
-            if ('favouriteList' in data){
+
+            if ('favouriteList' in data) {
                 console.log("hello");
-                let flag=0;
-                for(let p of data['favouriteList']){
-                    if (req.body.idProduct == p){
-                        flag=1;
+                let flag = 0;
+                for (let p of data['favouriteList']) {
+                    if (req.body.idProduct == p) {
+                        flag = 1;
                         break;
                     }
-                } 
-                
-                if(flag!=1){
+                }
+
+                if (flag != 1) {
                     data['favouriteList'].push(req.body.idProduct)
                     const res = await user.update({
                         favouriteList: data['favouriteList']
                     });
                 }
-                else{return res.status(200).send("it already exists");}
-            }else{
+                else { return res.status(200).send("it already exists"); }
+            } else {
 
                 const t = await user.set({
                     favouriteList: [req.body.idProduct]
@@ -125,8 +125,35 @@ module.exports.addFavourite = (req, res) => {
             }
             return res.status(200).send("Upgrade to host successfully");
         }
-        catch(err){
+        catch (err) {
             return res.status(500).send(err);
         }
     })()
 };
+
+module.exports.getListFavourite = (req, res) => {
+    (async () => {
+        try {
+            let user = db.collection('user').doc(req.params.id);
+            user = await user.get();
+            user = user.data();
+            let favouriteList = user['favouriteList'];
+
+            let product = db.collection('product')
+            console.log(favouriteList)
+            let response = []
+            for(let p of favouriteList){
+                let rel = product.doc(p);
+                rel = await rel.get();
+                rel = rel.data();
+                response.push(rel);
+            }
+            
+            return res.status(200).send(response)
+        }
+        catch (err) {
+            console.log("hello")
+            return res.status(500).send(err)
+        }
+    })()
+}
