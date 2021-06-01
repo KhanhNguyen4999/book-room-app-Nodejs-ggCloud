@@ -15,6 +15,8 @@ router.post('/api/addFavourite', controller.addFavourite)
 
 router.get('/api/getListFavourite/:id', controller.getListFavourite)
 
+router.post('/api/removeProductInListFavourite', controller.removeProductInListFavourite)
+
 
 
 module.exports = router

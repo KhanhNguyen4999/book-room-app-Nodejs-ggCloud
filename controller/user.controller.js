@@ -131,6 +131,30 @@ module.exports.addFavourite = (req, res) => {
     })()
 };
 
+module.exports.removeProductInListFavourite = (req, res) => {
+    (async() =>{
+        try{
+            let user = db.collection('user').doc(req.body.idUser)
+            let data = await user.get()
+            data = data.data();
+
+            let ls_favourite = data['favouriteList']
+            let index = ls_favourite.indexOf(req.body.idProduct)
+            if(index>-1){
+                ls_favourite.splice(index, 1)
+                const res = await user.update({
+                    favouriteList: ls_favourite
+                });
+                return res.status(200).send("Remove successed");
+            }
+            return res.status(200).send("Product have not in list")
+        }
+        catch(error){
+            return res.status(500).send(error);
+        }
+    })()
+}
+
 module.exports.getListFavourite = (req, res) => {
     (async () => {
         try {
