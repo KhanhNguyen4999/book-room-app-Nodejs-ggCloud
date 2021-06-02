@@ -170,6 +170,7 @@ module.exports.getListFavourite = (req, res) => {
                 let rel = product.doc(p);
                 rel = await rel.get();
                 rel = rel.data();
+                rel['id'] = p;
                 response.push(rel);
             }
             
