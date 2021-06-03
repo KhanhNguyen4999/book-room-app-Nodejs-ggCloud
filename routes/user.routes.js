@@ -17,6 +17,8 @@ router.get('/api/getListFavourite/:id', controller.getListFavourite)
 
 router.post('/api/removeProductInListFavourite', controller.removeProductInListFavourite)
 
+router.post('/api/validateLogin', controller.validateLogin)
+
 
 
 module.exports = router

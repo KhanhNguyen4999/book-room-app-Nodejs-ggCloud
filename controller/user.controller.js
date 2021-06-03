@@ -134,12 +134,16 @@ module.exports.addFavourite = (req, res) => {
 module.exports.removeProductInListFavourite = (req, res) => {
     (async() =>{
         try{
-            let user = db.collection('user').doc(req.body.idUser)
-            let data = await user.get()
+            let user = db.collection('user').doc(req.body.idUser);
+            let data = await user.get();
             data = data.data();
+            console.log(data);
 
+            console.log("hello");
+            console.log(data);
             let ls_favourite = data['favouriteList']
             let index = ls_favourite.indexOf(req.body.idProduct)
+           
             if(index>-1){
                 ls_favourite.splice(index, 1)
                 const res = await user.update({
@@ -179,6 +183,41 @@ module.exports.getListFavourite = (req, res) => {
         catch (err) {
             console.log("hello")
             return res.status(500).send(err)
+        }
+    })()
+}
+
+module.exports.validateLogin = (req, res) =>{
+    let error = []
+
+    if(!req.body.username)
+        error.push("username is required")
+    
+    if(!req.body.password)
+        error.push("password is required")
+    
+    if(error.length)
+        return res.status(200).send(error);
+    
+
+    (async() =>{
+        try{
+            let users = db.collection('user');
+            let response = []
+            await users.get().then(querySnapshot => {
+                let docs = querySnapshot.docs;
+                for (let doc of docs) {
+                    selectedUser = doc.data();
+                    if (selectedUser['username'] == req.body.username && selectedUser['password'] == req.body.password)
+                        return res.status(200).send("Logged in successfully")
+                    
+                }
+                return res.status(500).send('Invalid username or password');
+            })
+
+        }
+        catch(error){
+            return res.status(500).send("Error")
         }
     })()
 }
