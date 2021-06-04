@@ -207,9 +207,12 @@ module.exports.validateLogin = (req, res) =>{
             await users.get().then(querySnapshot => {
                 let docs = querySnapshot.docs;
                 for (let doc of docs) {
+                    let id = doc.id;
                     selectedUser = doc.data();
-                    if (selectedUser['username'] == req.body.username && selectedUser['password'] == req.body.password)
-                        return res.status(200).send("Logged in successfully")
+                    if (selectedUser['username'] == req.body.username && selectedUser['password'] == req.body.password){
+                        selectedUser['id'] = id;
+                        return res.status(200).send(selectedUser);
+                    }
                     
                 }
                 return res.status(500).send('Invalid username or password');
@@ -221,3 +224,4 @@ module.exports.validateLogin = (req, res) =>{
         }
     })()
 }
+
