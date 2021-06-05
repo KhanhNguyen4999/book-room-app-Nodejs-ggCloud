@@ -19,6 +19,8 @@ router.post('/api/removeProductInListFavourite', controller.removeProductInListF
 
 router.post('/api/validateLogin', controller.validateLogin)
 
+router.post('/api/booking', controller.makeAnAppointment)
 
+// book lichj hen, khachs hang dat lich hen thi se co trang thai cho cham nhan, con ben chu nha thi xac nhan
 
 module.exports = router

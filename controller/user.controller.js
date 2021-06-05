@@ -225,3 +225,59 @@ module.exports.validateLogin = (req, res) =>{
     })()
 }
 
+module.exports.makeAnAppointment = (req, res) =>{
+    (async()=>{
+        try{
+        // Handle host
+        let host = db.collection('user').doc(req.body.hostId)
+        let booking ={
+            'fullname': req.body.fullname,
+            'email': req.body.email,
+            'phone': req.body.phone,
+            'date': req.body.date
+        }
+
+        let hostData = await host.get();
+        hostData = hostData.data();
+        if('booking' in hostData){
+            hostData['booking'].push(booking)
+            const res = await host.update({
+                booking: hostData['booking']
+            });
+    
+        }
+        else{
+            const t = await host.set({
+                booking: [booking]
+            }, { merge: true });    
+        }
+
+        // Handle user
+        let user = db.collection('user').doc(req.body.userId)
+        let room_contacted = {
+            'productId': req.body.productId,
+            'date': req.body.date 
+        }
+        let userData = await user.get();
+        userData = userData.data();
+        if('room_contacted' in userData){
+            userData['room_contacted'].push(room_contacted)
+            const res = await user.update({
+                room_contacted: userData['room_contacted']
+            });
+    
+        }
+        else{
+            const t = await user.set({
+                room_contacted: [room_contacted]
+            }, { merge: true });    
+        }
+        
+        return res.status(200).send("Make an appointment successfully")
+    }
+    catch(error){
+        return res.status(500).send("Error")
+    }
+
+    })()
+}
