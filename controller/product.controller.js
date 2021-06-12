@@ -47,7 +47,7 @@ module.exports.registerProduct = function(req, res){
                 city: req.body.city,
                 addressNumber: req.body.addr_number
             },
-            discription: req.body.description,
+            description: req.body.description,
             facility: {
                 square: req.body.squareMeters,
                 wife: req.body.wife,
@@ -127,7 +127,7 @@ module.exports.getSpecificProduct = function(req, res){
 module.exports.postComment = function(req, res){
     (async() => {
         try{
-            console.log("hello")
+            
             const document = db.collection('product').doc(req.body.productId)
             const product = await document.get()
             let response = product.data()
