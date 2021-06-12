@@ -64,7 +64,7 @@ module.exports.registerProduct = function(req, res){
                 water: req.body.water
             },
             image: {
-                alt: req.body.alt_0,
+                alt: req.body.alt,
                 url: ls_imageURL 
             }
         }
