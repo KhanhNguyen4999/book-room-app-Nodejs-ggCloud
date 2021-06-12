@@ -50,7 +50,7 @@ module.exports.registerProduct = function(req, res){
             description: req.body.description,
             facility: {
                 square: req.body.squareMeters,
-                wife: req.body.wife,
+                wifi: req.body.wifi,
                 bedroom: req.body.bedroom,
                 bath: req.body.bath,
                 mezzanine: req.body.mezzanine
