@@ -11,19 +11,30 @@ const db = new Firestore({
 
 module.exports.registerUser = (req, res) => {
     (async () => {
-
+        console.log(req.files.length)
         try {
-            const imageUrl = await helpers.uploadImage(req.files[0])
-            console.log({
-                message: "Upload was successful",
-                data: imageUrl
-            })
-            const data = {
-                username: req.body.username,
-                password: req.body.password,
-                avatar: imageUrl
+            let data;
+            if (req.files.length!=0){
+                const imageUrl = await helpers.uploadImage(req.files[0])
+                console.log({
+                    message: "Upload was successful",
+                    data: imageUrl
+                })
+                data = {
+                    username: req.body.username,
+                    password: req.body.password,
+                    avatar: imageUrl
+                }
             }
-
+            else{
+                console.log("gdf")
+                data = {
+                    username: req.body.username,
+                    password: req.body.password,
+                    avatar: ''
+                }
+            }
+            console.log("alo")
             try {
                 const user = await db.collection('user').add(data)
                 user_id = user.id

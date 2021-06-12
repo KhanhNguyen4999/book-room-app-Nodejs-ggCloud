@@ -31,14 +31,14 @@ module.exports.registerProduct = function(req, res){
                 return res.status(500).send(error)
             }
         }
-        console.log(ls_imageURL)
-        const reviewer = []
-        for (i = 0; i < req.body.totalReviewer; i++) {
-            reviewer.push({
-                reviewerID: eval(`req.body.reviewerID_${i}`),
-                comment: eval(`req.body.comment_${i}`)
-            })
-        }
+        // console.log(ls_imageURL)
+        // const reviewer = []
+        // for (i = 0; i < req.body.totalReviewer; i++) {
+        //     reviewer.push({
+        //         reviewerID: eval(`req.body.reviewerID_${i}`),
+        //         comment: eval(`req.body.comment_${i}`)
+        //     })
+        // }
         const data = {
             type: req.body.type,
             address: {
@@ -63,7 +63,6 @@ module.exports.registerProduct = function(req, res){
                 electricity: req.body.electricity,
                 water: req.body.water
             },
-            reviews: reviewer,
             image: {
                 alt: req.body.alt_0,
                 url: ls_imageURL 
@@ -123,4 +122,38 @@ module.exports.getSpecificProduct = function(req, res){
             return res.status(500).send(error)
         }
     })();
+}
+
+module.exports.postComment = function(req, res){
+    (async() => {
+        try{
+            console.log("hello")
+            const document = db.collection('product').doc(req.body.productId)
+            const product = await document.get()
+            let response = product.data()
+            
+            review = {
+                reviewerID: req.body.userId,
+                comment: req.body.comment
+            }
+
+            if ('reviews' in response){
+                console.log("exist")
+                response['reviews'].push(review)
+                const res = await document.update({
+                    reviews: response['reviews']
+                });
+            }
+            else{
+                console.log("don't exist")
+                const t = await document.set({
+                    reviews: [review]
+                }, { merge: true }); 
+            }
+
+            res.status(200).send("Successfully")
+        } catch(error){
+            return res.status(500).send(error)
+        }
+    })()
 }
