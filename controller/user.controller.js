@@ -13,6 +13,19 @@ module.exports.registerUser = (req, res) => {
     (async () => {
         console.log(req.files.length)
         try {
+            let user = db.collection('user')
+
+            await user.get().then(querySnapshot => {
+                let allUser = querySnapshot.docs; // the result of the query
+
+                for (let u of allUser) {
+                    u = u.data()
+                    if (u.username == req.body.username) {
+                        return res.status(200).send("Username already existed");
+                    }
+                }
+            })
+
             let data;
             if (req.files.length != 0) {
                 const imageUrl = await helpers.uploadImage(req.files[0])
@@ -27,17 +40,15 @@ module.exports.registerUser = (req, res) => {
                 }
             }
             else {
-                console.log("gdf")
                 data = {
                     username: req.body.username,
                     password: req.body.password,
                     avatar: ''
                 }
             }
-            console.log("alo")
             try {
-                const user = await db.collection('user').add(data)
-                user_id = user.id
+                const out = user.add(data)
+                user_id = out.id
                 return res.status(200).send(user_id)
             } catch (error) {
                 return res.status(500).send(error)
@@ -294,5 +305,31 @@ module.exports.makeAnAppointment = (req, res) => {
             return res.status(500).send("Error")
         }
 
+    })()
+}
+
+module.exports.updatePassword = (req, res) => {
+    (async () => {
+        try {
+            const user_c = db.collection('user')
+            const snapshot = await user_c.get();
+            let user;
+            snapshot.forEach(doc => {
+                let d = doc.data();
+                if (d.username == req.body.username) {
+                    console.log(doc['ref'])
+                    user = doc['ref'];
+                }
+            });
+
+            await user.update({
+                password: req.body.newpassword
+            });
+            return res.status(200).send("Updated successfully")
+
+
+        } catch (error) {
+            return res.status(500).send(error)
+        }
     })()
 }
