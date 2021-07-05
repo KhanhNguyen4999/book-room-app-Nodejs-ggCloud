@@ -30,7 +30,7 @@ module.exports.registerUser = (req, res) => {
             })
             if(check==1)
                 return res.status(500).send("Username already existed");
-                
+
             console.log("hello")
             let data;
             if (req.files.length != 0) {
@@ -336,7 +336,7 @@ module.exports.updatePassword = (req, res) => {
 
 
         } catch (error) {
-            return res.status(500).send(error)
+            return res.status(500).send("Invalid username!")
         }
     })()
 }
