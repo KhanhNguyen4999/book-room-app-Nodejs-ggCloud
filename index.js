@@ -4,10 +4,11 @@ var path = require('path')
 var bodyParser = require('body-parser')
 require('dotenv').config()
 
-app = express()
 
 productRoute = require('./routes/product.routes')
 userRoute = require('./routes/user.routes')
+
+app = express()
 
 const multerMid = multer({
     storage: multer.memoryStorage(),

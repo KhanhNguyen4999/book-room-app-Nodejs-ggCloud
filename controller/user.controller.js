@@ -1,6 +1,7 @@
 const { QuerySnapshot } = require('@google-cloud/firestore');
 const Firestore = require('@google-cloud/firestore');
-const helpers = require('../helpers/helpers')
+const helpers = require('../helpers/helpers');
+// const { use } = require('../routes/user.routes');
 
 //----------------------------------------------------------Config firestore and cloud storage
 const db = new Firestore({
@@ -15,17 +16,22 @@ module.exports.registerUser = (req, res) => {
         try {
             let user = db.collection('user')
 
+            let check=0;
             await user.get().then(querySnapshot => {
                 let allUser = querySnapshot.docs; // the result of the query
 
                 for (let u of allUser) {
                     u = u.data()
+                    console.log(u)
                     if (u.username == req.body.username) {
-                        return res.status(200).send("Username already existed");
+                        check=1;
                     }
                 }
             })
-
+            if(check==1)
+                return res.status(500).send("Username already existed");
+                
+            console.log("hello")
             let data;
             if (req.files.length != 0) {
                 const imageUrl = await helpers.uploadImage(req.files[0])
@@ -46,6 +52,7 @@ module.exports.registerUser = (req, res) => {
                     avatar: ''
                 }
             }
+             
             try {
                 const out = user.add(data)
                 user_id = out.id
