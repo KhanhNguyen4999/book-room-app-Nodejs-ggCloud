@@ -134,9 +134,10 @@ module.exports.postComment = function(req, res){
             
             review = {
                 reviewerID: req.body.userId,
+                username: req.body.username,
+                image: req.body.image,
                 comment: req.body.comment
             }
-
             if ('reviews' in response){
                 console.log("exist")
                 response['reviews'].push(review)
