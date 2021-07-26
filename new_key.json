@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "book-room-app-321015",
+  "private_key_id": "f496dfa0349b531f557d5e796b5198d2d9eba226",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC+oGfT6lcS4RMM\nFvxsXHlsfbXXyk/ukT2o1to+DkLEn1tsMtsm7KCkqSYtGPvEes0XXL6inlxzTxx0\npfdp9E9LbSxC5nV2cG0LVrfJVA7KBbslNw3DuKGS+81ci3IV24OZK8UEZ71pdM9/\nau4zY2WQwRt3zRbMrd6YhtB9QjPdbNp4P7DNQwZcnjVjd8fjyW3CxwNNHll4lVP1\ntvCYSXVR/62IAUo33yJCmAtU2eaPfEDKphvFfXYN23P/9WhlBUxb1GTrsx7wGF2U\nzhRlU95jkODzU8Mx3p0+fLE8VE/mxVczN2oJEBlokCmB/20mWEiuwbVl0JbWJUYw\naKXA9AydAgMBAAECggEADxvyrtLLrQTm+BXYUxRvUWCTabOw6zVa4EeLS9DgjOoe\nmnBbe3XU88gubPOmfPfIyrnAqG4J4N/b3wkKl7zUDiPslq7ij40wr23jqlL9yxhy\nMWxwLFu1fstzhwrMc5wPDbRw7Lz2P+YQzkYg9DTEJ5mOvkukq3t6gbdpzgvRxZKI\nS15OG7oskxNXUg6tksnd1qiwspKyMy0eLlAWO7ZC0jQScCnmtSHcZoH1SIvmtB+V\niLNS8qXH7CgNjVdI98qfDKH8D3u7nGJrVC4bTmKddWx8kGSy0lT4YbeyleUSS3FB\n1HhGUMAXaTi+9MkWtPxm2+v5jLQg9V7Pbvr9+4HzBwKBgQD+8Cr/wg0JC6kv8BEB\nwQbfQuBUcx2fF5sLltZ8XtfYDxhowCTw2bO2VMFMabSODRRw2idnEGwxtr8k/VEq\nqamAJmFLrI2cyzxxss+KqWSLFJo7BAwZ7NEDifR4Ihq3qZN+QhH+DoLHkc4qdFOk\nKuV+ho7auKX9BvGORkUGRk+0pwKBgQC/a6oRtem1mOoPm6pohkotSbBB0yhjJ4XV\nkcwlrWggLuAKsG9Ei08zCdaoUnVYHSoNlAwXWTFfDgAoZwOjOemkRvF/7d1UNN/g\n0FqsTnTwZVDiwXVimLiZ/dx1DO99DxA5GzqGhC3Zy4N44RFbhW9llE8R8DtMuyFx\nsmEUn+DpGwKBgQC1rJMH5dKCQrQTvGFyPYtXKQJSTCKs0BamYJyCztfEWaWMaHkq\nxgligu2pNZ78p+eMMHpp4PMpTlDS3E6uN2/aKf+l/NaCCPcPE10BNIu47Tqnmc/B\n3dhpTDNSNQOTJJ4+GHlX8iFSdN5VtMYyNHuM+fjtdy6arQsQ15SyzwJX+wKBgHgH\nBJ8SWDd8aNfcnh/ohL6dBB5iT2LNN4hRYZcGgtIbUnShaUOrrr+sHaNyAQ59Sw80\nk9hYHzMhTkwHPCqvd6eArJGxDyVr+i23uANvNrg+b1egQwDODoLQwdnLgKgEOAH2\n5t3OKAn3KLs1NXMT2mPxeRsgba6RcEkgtur9zUOdAoGBAI7THjFcnaDuusLSFpDh\nhtDy15VfgIYaLozZeTnC+UU2tKjb9Z6E5mrT6k3M6i/G8jD8iqfWQPQFIvtDy7Nw\nVJo5EayZcmyvw6ZYnm8xVqONgJVHrRevqHXH/NYjJiGBeuNXJVrX5OXWSnPQ6l3S\nsserFxZsCUt5SwWjjHBMK8Ma\n-----END PRIVATE KEY-----\n",
+  "client_email": "book-room-app-321015@appspot.gserviceaccount.com",
+  "client_id": "111088804545846214706",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/book-room-app-321015%40appspot.gserviceaccount.com"
+}
