@@ -13,6 +13,7 @@ module.exports.prepareProductInfo = function(req, res){
     res.render('product.html')
 }
 
+print("hello")
 module.exports.registerProduct = function(req, res){
     console.log(req.body);
     console.log(req.files)
