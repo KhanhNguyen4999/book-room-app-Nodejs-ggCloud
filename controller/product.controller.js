@@ -13,7 +13,6 @@ module.exports.prepareProductInfo = function(req, res){
     res.render('product.html')
 }
 
-print("hello")
 module.exports.registerProduct = function(req, res){
     console.log(req.body);
     console.log(req.files)
@@ -67,7 +66,8 @@ module.exports.registerProduct = function(req, res){
             image: {
                 alt: req.body.alt,
                 url: ls_imageURL 
-            }
+            },
+            roomAvailable:req.body.roomAvailble
         }
         try {
             console.log("Before submit")
@@ -157,5 +157,26 @@ module.exports.postComment = function(req, res){
         } catch(error){
             return res.status(500).send(error)
         }
+    })()
+}
+
+module.exports.updateStatusRoom = function(req, res){
+    (async()=>{
+        try {
+            const document = db.collection('product').doc(req.params.id)
+            const product = await document.get()
+            let response = product.data()
+            console.log("current room status: ", response['roomAvailable'])
+            const changing = await document.update({
+                roomAvailable: !response['roomAvailable']
+            });
+            console.log(!response['roomAvailable'])
+            return res.status(200).send("updated room status successfully")
+        }
+        catch (error) {
+            console.log('error')
+            return res.status(500).send(error)
+        }
+
     })()
 }

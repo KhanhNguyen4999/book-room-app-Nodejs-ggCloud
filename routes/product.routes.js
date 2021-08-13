@@ -12,4 +12,7 @@ router.get('/api/read/:id', controller.getSpecificProduct)
 router.get('/api/read', controller.getAllProducts)
 
 router.post('/api/comment', controller.postComment)
+
+router.get('/api/updateStatus/:id', controller.updateStatusRoom)
+
 module.exports=router
