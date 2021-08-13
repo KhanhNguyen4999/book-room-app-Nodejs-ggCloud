@@ -67,10 +67,11 @@ module.exports.registerProduct = function(req, res){
                 alt: req.body.alt,
                 url: ls_imageURL 
             },
-            roomAvailable:req.body.roomAvailble
+            roomAvailable: req.body.roomAvailable=='true'
         }
         try {
             console.log("Before submit")
+            console.log(data)
             const doc = await db.collection('product').add(data); // ở đây theo mình mốt muốn xứ lí dưới app, thì khi thêm 1 product mới thì mình sẽ trả về id của document mới được thêm vào
             // id = doc.id
             console.log("submitted successfully")
