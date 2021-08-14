@@ -8,7 +8,7 @@ const {Storage} = require('@google-cloud/storage');
 // Creates a client
 const storage = new Storage({
     projectId: process.env.PROJECT_ID,
-    keyFilename: "new_key.json"
+    keyFilename: "key.json"
 });
 
 const bucket = storage.bucket(process.env.BUCKETNAME)

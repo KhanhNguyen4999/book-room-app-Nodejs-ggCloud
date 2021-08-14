@@ -7,7 +7,7 @@ const helpers = require('../helpers/helpers');
 const db = new Firestore({
     projectId: process.env.PROJECT_ID,
     // keyFilename: path.join(__dirname, 'key.json'),
-    keyFilename: "new_key.json"
+    keyFilename: "key.json"
 });
 
 module.exports.registerUser = (req, res) => {
